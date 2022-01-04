@@ -1,0 +1,56 @@
+{
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [
+                    {
+                        "file_path": "/var/log/messages",
+                        "log_group_name": "/aws/ec2/proxy/messages",
+                        "log_stream_name": "{instance_id}",
+                        "timestamp_format": "%b %d %H:%M:%S"
+                    },
+                    {
+                        "file_path": "/var/log/secure",
+                        "log_group_name": "/aws/ec2/proxy/secure",
+                        "log_stream_name": "{instance_id}",
+                        "timestamp_format": "%b %d %H:%M:%S"
+                    },
+                    {
+                        "file_path": "/var/log/squid/access.log",
+                        "log_group_name": "/aws/ec2/proxy/squid/access.log",
+                        "log_stream_name": "{instance_id}",
+                        "timestamp_format": "%b %d %H:%M:%S"
+                    },
+                    {
+                        "file_path": "/var/log/squid/cache.log",
+                        "log_group_name": "/aws/ec2/proxy/squid/cache.log",
+                        "log_stream_name": "${instance_id}",
+                        "timestamp_format": "%b %d %H:%M:%S"
+                    }
+                ]
+            }
+        }
+    },
+    "metrics": {
+        "namespace": "/aws/ec2/proxy",
+        "append_dimensions": {
+            "InstanceId": "${aws:InstanceId}"
+        },
+        "aggregation_dimensions": [["InstanceId"]],
+        "metrics_collected": {
+            "mem": {
+                "measurement": ["mem_used_percent", "mem_used", "mem_free", "mem_available"],
+                "metrics_collection_interval": 60
+            },
+            "disk": {
+                "measurement": ["used_percent", "disk_free"],
+                "metrics_collection_interval": 60,
+                "resources": ["/", "/var", "/opt"]
+            },
+            "netstat": {
+                "measurement": ["tcp_established", "tcp_time_wait"],
+                "metrics_collection_interval": 60
+            }
+        }
+    }
+}

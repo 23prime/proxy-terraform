@@ -1,0 +1,21 @@
+{
+    // Terraform
+    "[terraform]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true
+    },
+
+    // YAML
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+
+    // JSON
+    "[json]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

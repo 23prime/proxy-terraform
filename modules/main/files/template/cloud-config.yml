@@ -1,0 +1,33 @@
+#cloud-config
+
+timezone: Asia/Tokyo
+locale: ja_JP.UTF-8
+
+repo_update: true
+repo_upgrade: all
+
+package_update: true
+
+packages:
+  - squid
+  - amazon-cloudwatch-agent
+
+write_files:
+  - path: /etc/squid/squid.conf
+    content: |
+      ${squid_config}
+  - path: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+    content: |
+      ${cloudwatch_agent_config}
+
+runcmd:
+  - hostnamectl set-hostname proxy01
+  - systemctl enable squid
+  - systemctl start squid
+  - systemctl enable amazon-cloudwatch-agent
+  - systemctl start amazon-cloudwatch-agent
+
+power_state:
+  delay: "+10"
+  mode: reboot
+  timeout: 60
